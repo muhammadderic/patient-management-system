@@ -1,17 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
+import { Mail, User } from "lucide-react";
 
 import { UserFormValidation } from "@/lib";
+import { createUser } from "@/lib/actions";
 
 import { CustomFormField, FormFieldType } from "../CustomFormField";
 import { SubmitButton } from "../SubmitButton";
-import { Mail, User } from "lucide-react";
 
 export const PatientForm = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   
   const { control, handleSubmit } = useForm<z.infer<typeof UserFormValidation>>({
@@ -33,13 +36,11 @@ export const PatientForm = () => {
         phone: values.phone,
       };
 
-      console.log(user);
+      const newUser = await createUser(user);
 
-      // const newUser = await createUser(user);
-
-      // if (newUser) {
-      //   router.push(`/patients/${newUser.$id}/register`);
-      // }
+      if (newUser) {
+        router.push(`/patients/${newUser.$id}/register`);
+      }
     } catch (error) {
       console.log(error);
     }
