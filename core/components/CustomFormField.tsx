@@ -5,6 +5,8 @@ import {
   Path 
 } from "react-hook-form";
 import { LucideIcon } from "lucide-react";
+import PhoneInput from "react-phone-number-input";
+import { E164Number } from "libphonenumber-js/core";
 
 import { 
   Field, 
@@ -67,6 +69,21 @@ const RenderInput = ({
             {...field}
             aria-invalid={isInvalid}
             className="shad-input border-0"
+          />
+        </div>
+      );
+    case FormFieldType.PHONE_INPUT:
+      return (
+        <div className="phone-input-wrapper">
+          <PhoneInput
+            defaultCountry="US"
+            placeholder={props.placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined}
+            onChange={field.onChange}
+            aria-invalid={isInvalid}
+            disabled={props.disabled}
           />
         </div>
       );

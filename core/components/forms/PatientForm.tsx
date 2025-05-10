@@ -19,7 +19,7 @@ export const PatientForm = () => {
     defaultValues: {
       name: "",
       email: "",
-      // phone: "",
+      phone: "",
     },
   });
 
@@ -30,7 +30,7 @@ export const PatientForm = () => {
       const user = {
         name: values.name,
         email: values.email,
-        // phone: values.phone,
+        phone: values.phone,
       };
 
       console.log(user);
@@ -70,6 +70,14 @@ export const PatientForm = () => {
         label="Email"
         placeholder="johndoe@gmail.com"
         icon={Mail}
+      />
+
+      <CustomFormField
+        fieldType={FormFieldType.PHONE_INPUT}
+        control={control}
+        name="phone"
+        label="Phone number"
+        placeholder="(555) 123-4567"
       />
 
       <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
