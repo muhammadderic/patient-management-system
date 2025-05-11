@@ -15,12 +15,17 @@ import "react-phone-number-input/style.css";
 import { CustomFormField, FormFieldType } from "../CustomFormField";
 import { SubmitButton } from "../SubmitButton";
 
-export const RegisterForm = () => {
+export const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { control, handleSubmit } = useForm<z.infer<typeof PatientFormValidation>>({
     resolver: zodResolver(PatientFormValidation),
-    defaultValues: { ...PatientFormDefaultValues },
+    defaultValues: { 
+      ...PatientFormDefaultValues,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+    },
   });
 
   const onSubmit = async (values: z.infer<typeof PatientFormValidation>) => {

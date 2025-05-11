@@ -1,8 +1,11 @@
 import Image from "next/image";
 
+import { getUser } from "@/lib/actions";
 import { RegisterForm } from "@/components/forms";
 
-const Register = async () => {
+const Register = async ({ params }: { params: Promise<{ userId: string }> }) => {
+  const { userId } = await params; 
+  const user = await getUser(userId); 
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -17,7 +20,7 @@ const Register = async () => {
             loading="eager"
           />
 
-          <RegisterForm/>
+          <RegisterForm user={user}/>
 
           <p className="copyright py-12">© 2024 patient-management-system</p>
         </div>
