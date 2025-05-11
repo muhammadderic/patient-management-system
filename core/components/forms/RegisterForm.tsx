@@ -128,7 +128,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
             control={control}
             name="address"
             label="Address"
-            placeholder="14 street, New york, NY - 5101"
+            placeholder="Ciamis, Sukajadi, Padasuka, Jl.Hayam Wuruk"
           />
 
           <CustomFormField
@@ -175,7 +175,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
             control={control}
             name="insuranceProvider"
             label="Insurance provider"
-            placeholder="BlueCross BlueShield"
+            placeholder="Asuransi Bandung Bersama"
           />
 
           <CustomFormField
@@ -189,16 +189,40 @@ export const RegisterForm = ({ user }: { user: User }) => {
 
         {/* ALLERGY & CURRENT MEDICATIONS */}
         <div className="flex flex-col gap-6 xl:flex-row">
-          <p>ALLERGIES</p>
+          <CustomFormField
+            fieldType={FormFieldType.TEXTAREA}
+            control={control}
+            name="allergies"
+            label="Allergies (if any)"
+            placeholder="Peanuts, Penicillin, Pollen"
+          />
 
-          <p>CURRENT MEDICATIONS</p>
+          <CustomFormField
+            fieldType={FormFieldType.TEXTAREA}
+            control={control}
+            name="currentMedication"
+            label="Current medications"
+            placeholder="Ibuprofen 200mg, Levothyroxine 50mcg"
+          />
         </div>
 
         {/* FAMILY MEDICATION & PAST MEDICATIONS */}
         <div className="flex flex-col gap-6 xl:flex-row">
-          <p>FAMILY MEDICAL HISTORY</p>
+          <CustomFormField
+            fieldType={FormFieldType.TEXTAREA}
+            control={control}
+            name="familyMedicalHistory"
+            label=" Family medical history (if relevant)"
+            placeholder="Mother had hypotension, Father has hypertension"
+          />
 
-          <p>PAST MEDICAL HISTORY</p>
+          <CustomFormField
+            fieldType={FormFieldType.TEXTAREA}
+            control={control}
+            name="pastMedicalHistory"
+            label="Past medical history"
+            placeholder="Appendectomy in 2015, Asthma diagnosis in childhood"
+          />
         </div>
       </section>
 

@@ -15,6 +15,7 @@ import {
   FieldError 
 } from "./ui/field";
 import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -72,6 +73,15 @@ const RenderInput = ({
             className="shad-input border-0"
           />
         </div>
+      );
+    case FormFieldType.TEXTAREA:
+      return (
+        <Textarea
+          placeholder={props.placeholder}
+          {...field}
+          className="shad-textArea"
+          disabled={props.disabled}
+        />
       );
     case FormFieldType.PHONE_INPUT:
       return (
