@@ -111,7 +111,12 @@ export const RegisterForm = ({ user }: { user: User }) => {
 
         {/* BirthDate & Gender */}
         <div className="flex flex-col gap-6 xl:flex-row">
-          <p>BIRTH DATE</p>
+          <CustomFormField
+            fieldType={FormFieldType.DATE_PICKER}
+            control={control}
+            name="birthDate"
+            label="Date of birth"
+          />
 
           <p>GENDER</p>
         </div>

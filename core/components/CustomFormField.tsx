@@ -4,9 +4,10 @@ import {
   FieldValues, 
   Path 
 } from "react-hook-form";
-import { LucideIcon } from "lucide-react";
+import { CalendarFold, LucideIcon } from "lucide-react";
 import PhoneInput from "react-phone-number-input";
 import { E164Number } from "libphonenumber-js/core";
+import ReactDatePicker from "react-datepicker";
 
 import { 
   Field, 
@@ -84,6 +85,23 @@ const RenderInput = ({
             onChange={field.onChange}
             aria-invalid={isInvalid}
             disabled={props.disabled}
+          />
+        </div>
+      );
+    case FormFieldType.DATE_PICKER:
+      return (
+        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+          <div className="flex items-center justify-center">
+            <CalendarFold className="ml-2 h-5 w-5 text-dark-600 shrink-0" />
+          </div>
+          <ReactDatePicker
+            showTimeSelect={props.showTimeSelect ?? false}
+            selected={field.value}
+            onChange={(date: Date | null) => field.onChange(date)}
+            timeInputLabel="Time:"
+            dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
+            wrapperClassName="date-picker"
+            aria-invalid={isInvalid ? "true" : "false"} 
           />
         </div>
       );
