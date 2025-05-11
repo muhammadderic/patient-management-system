@@ -1,1 +1,4 @@
-export { UserFormValidation } from "./validation";
+export { 
+  UserFormValidation, 
+  PatientFormValidation 
+} from "./validation";

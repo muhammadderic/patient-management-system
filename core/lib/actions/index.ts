@@ -1,1 +1,4 @@
-export { createUser } from "./patient.actions";
+export { 
+  createUser,
+  registerPatient
+} from "./patient.actions";

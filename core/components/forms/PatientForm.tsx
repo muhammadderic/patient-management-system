@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
@@ -14,7 +14,7 @@ import { CustomFormField, FormFieldType } from "../CustomFormField";
 import { SubmitButton } from "../SubmitButton";
 
 export const PatientForm = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   
   const { control, handleSubmit } = useForm<z.infer<typeof UserFormValidation>>({
@@ -38,9 +38,9 @@ export const PatientForm = () => {
 
       const newUser = await createUser(user);
 
-      // if (newUser) {
-      //   router.push(`/patients/${newUser.$id}/register`);
-      // }
+      if (newUser) {
+        router.push(`/patients/${newUser.$id}/register`);
+      }
     } catch (error) {
       console.log(error);
     }

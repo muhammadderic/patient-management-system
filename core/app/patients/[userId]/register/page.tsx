@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { RegisterForm } from "@/components/forms";
+
 const Register = async () => {
 
   return (
@@ -12,9 +14,12 @@ const Register = async () => {
             width={1000}
             alt="patient"
             className="mb-12 h-10 w-fit"
+            loading="eager"
           />
 
-          <p className="copyright py-12">© 2024 CarePluse</p>
+          <RegisterForm/>
+
+          <p className="copyright py-12">© 2024 patient-management-system</p>
         </div>
       </section>
 
@@ -24,6 +29,7 @@ const Register = async () => {
         width={1000}
         alt="patient"
         className="side-img max-w-[390px]"
+        loading="eager"
       />
     </div>
   );
