@@ -16,6 +16,7 @@ import {
 } from "./ui/field";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { Checkbox } from "./ui/checkbox";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -82,6 +83,19 @@ const RenderInput = ({
           className="shad-textArea"
           disabled={props.disabled}
         />
+      );
+    case FormFieldType.CHECKBOX:
+      return (
+        <div className="flex items-center gap-4">
+          <Checkbox
+            id={props.name}
+            checked={field.value}
+            onCheckedChange={field.onChange}
+          />
+          <label htmlFor={props.name} className="checkbox-label">
+            {props.label}
+          </label>
+        </div>
       );
     case FormFieldType.PHONE_INPUT:
       return (

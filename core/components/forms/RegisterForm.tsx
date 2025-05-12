@@ -249,11 +249,28 @@ export const RegisterForm = ({ user }: { user: User }) => {
           <h2 className="sub-header">Consent and Privacy</h2>
         </div>
 
-        <p>TREATMENT CONSENT</p>
+        <CustomFormField
+          fieldType={FormFieldType.CHECKBOX}
+          control={control}
+          name="treatmentConsent"
+          label="I consent to receive treatment for my health condition."
+        />
 
-        <p>DISCLOSURE CONSENT</p>
+        <CustomFormField
+          fieldType={FormFieldType.CHECKBOX}
+          control={control}
+          name="disclosureConsent"
+          label="I consent to the use and disclosure of my health
+          information for treatment purposes."
+        />
 
-        <p>PRIVACY CONSENT</p>
+        <CustomFormField
+          fieldType={FormFieldType.CHECKBOX}
+          control={control}
+          name="privacyConsent"
+          label="I acknowledge that I have reviewed and agree to the
+          privacy policy"
+        />
       </section>
 
       <SubmitButton isLoading={isLoading}>
