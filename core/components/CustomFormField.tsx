@@ -17,6 +17,7 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Checkbox } from "./ui/checkbox";
+import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -96,6 +97,17 @@ const RenderInput = ({
             {props.label}
           </label>
         </div>
+      );
+    case FormFieldType.SELECT:
+      return (
+        <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <SelectTrigger className="shad-select-trigger" aria-invalid={isInvalid}>
+            <SelectValue placeholder={props.placeholder} />
+          </SelectTrigger>
+          <SelectContent className="shad-select-content">
+            {props.children}
+          </SelectContent>
+        </Select>
       );
     case FormFieldType.PHONE_INPUT:
       return (

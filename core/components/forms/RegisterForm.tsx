@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Mail, User } from "lucide-react";
 
-import { GenderOptions, PatientFormDefaultValues } from "@/constants";
+import { Doctors, GenderOptions, PatientFormDefaultValues } from "@/constants";
 import { PatientFormValidation } from "@/lib";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,9 +14,10 @@ import "react-phone-number-input/style.css";
 
 import { CustomFormField, FormFieldType } from "../CustomFormField";
 import { SubmitButton } from "../SubmitButton";
-import { Field, FieldError, FieldLabel } from "../ui/field";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
+import Image from "next/image";
+import { SelectItem } from "../ui/select";
 
 export const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -83,7 +84,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
           <h2 className="sub-header">Personal Information</h2>
         </div>
 
-        {/* NAME */}
+        {/* Name */}
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={control}
@@ -92,7 +93,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
           icon={User}
         />
 
-        {/* EMAIL & PHONE */}
+        {/* Email & Phone */}
         <div className="flex flex-col gap-6 xl:flex-row">
           <CustomFormField
             fieldType={FormFieldType.INPUT}
@@ -191,10 +192,32 @@ export const RegisterForm = ({ user }: { user: User }) => {
           <h2 className="sub-header">Medical Information</h2>
         </div>
 
-        {/* PRIMARY CARE PHYSICIAN */}
-        <p>PRIMARY PHYSICIAN</p>
+        {/* Primary Care Physician */}
+        <CustomFormField
+          fieldType={FormFieldType.SELECT}
+          control={control}
+          name="primaryPhysician"
+          label="Primary care physician"
+          placeholder="Select a physician"
+        >
+          {Doctors.map((doctor, i) => (
+            <SelectItem key={doctor.name + i} value={doctor.name}>
+              <div className="flex cursor-pointer items-center gap-2">
+                <Image
+                  src={doctor.image}
+                  width={32}
+                  height={32}
+                  alt="doctor"
+                  className="rounded-full border border-dark-500"
+                  loading="eager"
+                />
+                <p>{doctor.name}</p>
+              </div>
+            </SelectItem>
+          ))}
+        </CustomFormField>
 
-        {/* INSURANCE & POLICY NUMBER */}
+        {/* Insurance & Policy Number */}
         <div className="flex flex-col gap-6 xl:flex-row">
           <CustomFormField
             fieldType={FormFieldType.INPUT}
@@ -213,7 +236,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
           />
         </div>
 
-        {/* ALLERGY & CURRENT MEDICATIONS */}
+        {/* Allergy & Current Medications */}
         <div className="flex flex-col gap-6 xl:flex-row">
           <CustomFormField
             fieldType={FormFieldType.TEXTAREA}
@@ -232,7 +255,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
           />
         </div>
 
-        {/* FAMILY MEDICATION & PAST MEDICATIONS */}
+        {/* Family Medication & Past Medications */}
         <div className="flex flex-col gap-6 xl:flex-row">
           <CustomFormField
             fieldType={FormFieldType.TEXTAREA}
@@ -252,6 +275,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
         </div>
       </section>
 
+      {/* Identification Fields */}
       <section className="space-y-6">
         <div className="mb-9 space-y-1">
           <h2 className="sub-header">Identification and Verfication</h2>
@@ -270,6 +294,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
         <p>IDENTIFICATION DOCUMENT</p>
       </section>
 
+      {/* Consent & Privacy */}
       <section className="space-y-6">
         <div className="mb-9 space-y-1">
           <h2 className="sub-header">Consent and Privacy</h2>
