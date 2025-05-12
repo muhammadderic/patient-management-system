@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Mail, User } from "lucide-react";
 
-import { PatientFormDefaultValues } from "@/constants";
+import { GenderOptions, PatientFormDefaultValues } from "@/constants";
 import { PatientFormValidation } from "@/lib";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,6 +14,9 @@ import "react-phone-number-input/style.css";
 
 import { CustomFormField, FormFieldType } from "../CustomFormField";
 import { SubmitButton } from "../SubmitButton";
+import { Field, FieldError, FieldLabel } from "../ui/field";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Label } from "../ui/label";
 
 export const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -118,7 +121,30 @@ export const RegisterForm = ({ user }: { user: User }) => {
             label="Date of birth"
           />
 
-          <p>GENDER</p>
+          <CustomFormField
+            fieldType={FormFieldType.SKELETON}
+            control={control}
+            name="gender"
+            label="Gender"
+            renderSkeleton={(field) => (
+              <div className="flex-1">
+                <RadioGroup
+                  className="flex h-11 gap-6 xl:justify-between"
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  {GenderOptions.map((option, i) => (
+                    <div key={option + i} className="radio-group flex items-center space-x-2">
+                      <RadioGroupItem value={option} id={option} />
+                      <Label htmlFor={option} className="cursor-pointer">
+                        {option}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
+            )}
+          />
         </div>
 
         {/* Address & Occupation */}
