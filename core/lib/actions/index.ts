@@ -1,4 +1,5 @@
 export { 
   createUser,
-  getUser
+  getUser,
+  registerPatient
 } from "./patient.actions";
