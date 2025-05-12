@@ -1,12 +1,18 @@
 "use client";
 
+import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Mail, User } from "lucide-react";
 
-import { Doctors, GenderOptions, PatientFormDefaultValues } from "@/constants";
+import { 
+  Doctors, 
+  GenderOptions, 
+  IdentificationTypes, 
+  PatientFormDefaultValues 
+} from "@/constants";
 import { PatientFormValidation } from "@/lib";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,8 +22,8 @@ import { CustomFormField, FormFieldType } from "../CustomFormField";
 import { SubmitButton } from "../SubmitButton";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
-import Image from "next/image";
 import { SelectItem } from "../ui/select";
+import { FileUploader } from "../FileUploader";
 
 export const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -281,7 +287,19 @@ export const RegisterForm = ({ user }: { user: User }) => {
           <h2 className="sub-header">Identification and Verfication</h2>
         </div>
 
-        <p>IDENTIFICATION TYPE</p>
+        <CustomFormField
+          fieldType={FormFieldType.SELECT}
+          control={control}
+          name="identificationType"
+          label="Identification Type"
+          placeholder="Select identification type"
+        >
+          {IdentificationTypes.map((type, i) => (
+            <SelectItem key={type + i} value={type}>
+              {type}
+            </SelectItem>
+          ))}
+        </CustomFormField>
 
         <CustomFormField
           fieldType={FormFieldType.INPUT}
@@ -291,7 +309,20 @@ export const RegisterForm = ({ user }: { user: User }) => {
           placeholder="123456789"
         />
 
-        <p>IDENTIFICATION DOCUMENT</p>
+        <CustomFormField
+          fieldType={FormFieldType.SKELETON}
+          control={control}
+          name="identificationDocument"
+          label="Scanned Copy of Identification Document"
+          renderSkeleton={(field) => (
+            <div className="flex-1">
+              <FileUploader 
+                files={field.value} 
+                onChange={field.onChange} 
+              />
+            </div>
+          )}
+        />
       </section>
 
       {/* Consent & Privacy */}
