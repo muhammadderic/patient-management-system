@@ -1,4 +1,5 @@
 export { 
   UserFormValidation, 
-  PatientFormValidation 
+  PatientFormValidation,
+  getAppointmentSchema
 } from "./validation";

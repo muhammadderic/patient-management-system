@@ -7,7 +7,7 @@ import {
   BUCKET_ID,
   DATABASE_ID,
   ENDPOINT,
-  PATIENT_COLLECTION_ID,
+  PATIENT_TABLE_ID,
   PROJECT_ID,
   databases,
   storage,
@@ -57,8 +57,10 @@ export const getUser = async (userId: string) => {
   }
 };
 
+// REGISTER PATIENT
 export const registerPatient = async ({
   identificationDocument,
+  $id,
   ...patient
 }: RegisterUserParams) => {
   try {
@@ -79,21 +81,39 @@ export const registerPatient = async ({
       );
     }
 
-    const newPatient = await databases.createDocument(
-      DATABASE_ID!,
-      PATIENT_COLLECTION_ID!,
-      ID.unique(),
-      {
+    const newPatient = await databases.createDocument({
+      databaseId: DATABASE_ID!,
+      collectionId: PATIENT_TABLE_ID!,
+      documentId: $id,
+      data: {
         identificationDocumentId: file?.$id ? file.$id : null,
         identificationDocumentUrl: file?.$id
           ? `${ENDPOINT}/storage/buckets/${BUCKET_ID}/files/${file.$id}/view??project=${PROJECT_ID}`
           : null,
         ...patient,
-      },
-    );
+      }
+    });
 
     return parseStringify(newPatient);
   } catch (error) {
     console.error("An error occurred while creating a new patient:", error);
   }
 };
+
+// GET PATIENT
+export const getPatient = async ($id: string) => {
+  try {
+    const patients = await databases.listDocuments(
+      DATABASE_ID!,
+      PATIENT_TABLE_ID!,
+      [Query.equal("$id", [$id])]
+    );
+
+    return parseStringify(patients.documents[0]);
+  } catch (error) {
+    console.error(
+      "An error occurred while retrieving the patient details:",
+      error
+    );
+  }
+}

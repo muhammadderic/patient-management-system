@@ -15,6 +15,7 @@ import {
   PatientFormDefaultValues 
 } from "@/constants";
 import { PatientFormValidation } from "@/lib";
+import { registerPatient } from "@/lib/actions";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
@@ -25,7 +26,6 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import { FileUploader } from "../FileUploader";
-import { registerPatient } from "@/lib/actions";
 
 export const RegisterForm = ({ user }: { user: User }) => {
   const router = useRouter();
@@ -61,7 +61,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
 
     try {
       const patient = {
-        userId: user.$id,
+        $id: user.$id,
         name: values.name,
         email: values.email,
         phone: values.phone,
@@ -166,7 +166,7 @@ export const RegisterForm = ({ user }: { user: User }) => {
                   {GenderOptions.map((option, i) => (
                     <div key={option + i} className="radio-group flex items-center space-x-2">
                       <RadioGroupItem value={option} id={option} />
-                      <Label htmlFor={option} className="cursor-pointer">
+                      <Label htmlFor={option} className="cursor-pointer capitalize">
                         {option}
                       </Label>
                     </div>
