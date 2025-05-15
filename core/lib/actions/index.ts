@@ -4,3 +4,7 @@ export {
   registerPatient,
   getPatient
 } from "./patient.actions";
+
+export {
+  createAppointment
+} from "./appointment.actions";

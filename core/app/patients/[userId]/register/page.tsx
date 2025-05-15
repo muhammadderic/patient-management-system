@@ -5,6 +5,7 @@ import { RegisterForm } from "@/components/forms";
 
 const Register = async ({ params }: { params: Promise<{ userId: string }> }) => {
   const { userId } = await params; 
+  console.log("userId: ", userId)
   const user = await getUser(userId); 
 
   return (

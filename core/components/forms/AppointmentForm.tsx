@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +9,7 @@ import z from "zod";
 
 import { Doctors } from "@/constants";
 import { getAppointmentSchema } from "@/lib";
+import { createAppointment } from "@/lib/actions";
 import { Appointment } from "@/types/appwrite.types";
 
 import { CustomFormField, FormFieldType } from "../CustomFormField";
@@ -27,12 +29,13 @@ export const AppointmentForm = ({
   type = "create",
   appointment
 }: AppointmentFormProps) => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [initialDate] = useState(() => new Date(Date.now()));
 
   const AppointmentFormValidation = getAppointmentSchema(type);
   
-  const { control, handleSubmit } = useForm<z.infer<typeof AppointmentFormValidation>>({
+  const { control, handleSubmit, reset } = useForm<z.infer<typeof AppointmentFormValidation>>({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
       primaryPhysician: appointment ? appointment?.primaryPhysician : "",
@@ -70,6 +73,15 @@ export const AppointmentForm = ({
           reason: values.reason!,
           status: status as Status,
           note: values.note,
+        }
+
+        const newAppointment = await createAppointment(appointment);
+
+        if (newAppointment) {
+          reset();
+          router.push(
+            `/patients/${userId}/new-appointment/success?appointmentId=${newAppointment.$id}`
+          );
         }
       } else {
         const appointmentToUpdate = {
