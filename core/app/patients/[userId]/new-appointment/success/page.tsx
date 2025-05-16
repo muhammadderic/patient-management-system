@@ -23,7 +23,7 @@ const RequestSuccess = async ({ params, searchParams }: Props) => {
   return (
     <div className=" flex h-screen max-h-screen px-[5%]">
       <div className="success-img">
-        <Link href="/">
+        <Link href="/" className="bg-white rounded-md">
           <Image
             src="/assets/icons/logo-full.svg"
             height={1000}
@@ -86,6 +86,8 @@ const RequestSuccess = async ({ params, searchParams }: Props) => {
             New Appointment
           </Link>
         </Button>
+
+         <p className="copyright">© 2026 patient-management-system</p>
       </div>
     </div>
   )
