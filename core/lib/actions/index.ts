@@ -6,5 +6,6 @@ export {
 } from "./patient.actions";
 
 export {
-  createAppointment
+  createAppointment,
+  getAppointment
 } from "./appointment.actions";
