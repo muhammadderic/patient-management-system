@@ -14,25 +14,27 @@ export default async function Home({ searchParams }: Props) {
 
   return (
     <div className="flex h-screen max-h-screen">
+      {/* OTP Verivication / PasskeyModal */}
       {isAdmin && <PasskeyModal />}
 
-      {/* TODO: OTP Verivication / PasskeyModal */}
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
-          <Image
-            src="/assets/icons/logo-full.svg"
-            height={1000}
-            width={1000}
-            alt="patient"
-            className="mb-12 h-10 w-fit"
-            loading="eager"
-          />
+          <div className="mb-2 w-fit rounded-full bg-white p-1 shadow-sm">
+            <Image
+              src="/assets/icons/logo-full.svg"
+              height={40}
+              width={40}
+              alt="patient"
+              className="h-10 w-auto"
+              loading="eager"
+            />
+          </div>
 
           <PatientForm />
 
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
-              © 2024 CarePluse
+              © 2024 PatientManagementSystem
             </p>
             <Link href="/?admin=true" className="text-green-500">
               Admin
@@ -48,6 +50,7 @@ export default async function Home({ searchParams }: Props) {
         width={1000}
         alt="patient"
         className="side-img max-w-[50%]"
+        loading="eager"
       />
     </div>
   );

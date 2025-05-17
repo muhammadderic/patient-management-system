@@ -12,14 +12,16 @@ const Register = async ({ params }: { params: Promise<{ userId: string }> }) => 
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container">
         <div className="sub-container max-w-[860px] flex-1 flex-col py-10">
-          <Image
-            src="/assets/icons/logo-full.svg"
-            height={1000}
-            width={1000}
-            alt="patient"
-            className="mb-12 h-10 w-fit"
-            loading="eager"
-          />
+          <div className="mb-2 w-fit rounded-full bg-white p-1 shadow-sm">
+            <Image
+              src="/assets/icons/logo-full.svg"
+              height={40}
+              width={40}
+              alt="patient"
+              className="h-10 w-auto"
+              loading="eager"
+            />
+          </div>
 
           <RegisterForm user={user}/>
 
