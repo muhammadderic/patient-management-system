@@ -7,5 +7,6 @@ export {
 
 export {
   createAppointment,
-  getAppointment
+  getAppointment,
+  getRecentAppointmentList
 } from "./appointment.actions";
