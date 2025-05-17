@@ -8,7 +8,7 @@ import { getRecentAppointmentList } from "@/lib/actions";
 
 const AdminPage = async () => {
   const appointments = await getRecentAppointmentList();
-  
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">
@@ -47,7 +47,7 @@ const AdminPage = async () => {
             icon={"/assets/icons/pending.svg"}
           />
           <StatCard
-            type="cancelled"
+            type="canceled"
             count={appointments.cancelledCount}
             label="Cancelled appointments"
             icon={"/assets/icons/cancelled.svg"}
