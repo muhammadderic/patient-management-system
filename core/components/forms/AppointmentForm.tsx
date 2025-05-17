@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 
 import { Doctors } from "@/constants";
 import { getAppointmentSchema } from "@/lib";
-import { createAppointment } from "@/lib/actions";
+import { createAppointment, updateAppointment } from "@/lib/actions";
 import { Appointment } from "@/types/appwrite.types";
 
 import { CustomFormField, FormFieldType } from "../CustomFormField";
@@ -21,13 +21,15 @@ interface AppointmentFormProps {
   patientId: string;
   type: "create" | "schedule" | "cancel";
   appointment?: Appointment;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
 export const AppointmentForm = ({
   userId,
   patientId,
   type = "create",
-  appointment
+  appointment,
+  setOpen,
 }: AppointmentFormProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -84,9 +86,15 @@ export const AppointmentForm = ({
           );
         }
       } else {
+        if (!appointment?.$id) {
+          console.error("Cannot update appointment without an appointmentId");
+          return;
+        }
+
         const appointmentToUpdate = {
           userId,
           appointmentId: appointment?.$id,
+          timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
           appointment: {
             primaryPhysician: values.primaryPhysician,
             schedule: new Date(values.schedule),
@@ -95,6 +103,14 @@ export const AppointmentForm = ({
           },
           type,
         };
+
+        const updatedAppointment = await updateAppointment(appointmentToUpdate);
+
+        if (updatedAppointment) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          setOpen && setOpen(false);
+          reset();
+        }
       }
     } catch (error) {
       console.log(error);
